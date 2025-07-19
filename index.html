@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS João Monlevade - MG</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-map-marked-alt"></i> WebGIS João Monlevade</h1>
+            <div class="device-toggle">
+                <button id="desktopMode" class="mode-btn active">
+                    <i class="fas fa-desktop"></i> Desktop
+                </button>
+                <button id="mobileMode" class="mode-btn">
+                    <i class="fas fa-mobile-alt"></i> Mobile
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Container principal -->
+    <div class="main-container">
+        <!-- Sidebar com controles -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-layers"></i> Controle de Camadas</h3>
+                <button class="close-sidebar" id="closeSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="layer-controls">
+                <div class="layer-group">
+                    <h4><i class="fas fa-map"></i> Mapas Base</h4>
+                    <div class="layer-item">
+                        <input type="radio" name="basemap" id="streets" value="streets" checked>
+                        <label for="streets">Ruas (OpenStreetMap)</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="radio" name="basemap" id="satellite" value="satellite">
+                        <label for="satellite">Satélite (Esri)</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="radio" name="basemap" id="terrain" value="terrain">
+                        <label for="terrain">Terreno (OpenTopoMap)</label>
+                    </div>
+                </div>
+
+                <div class="layer-group">
+                    <h4><i class="fas fa-city"></i> Dados da Cidade</h4>
+                    <div class="layer-item">
+                        <input type="checkbox" id="bairros" checked>
+                        <label for="bairros">Bairros</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="checkbox" id="estruturas" checked>
+                        <label for="estruturas">Estruturas Urbanas</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="checkbox" id="monlevade" checked>
+                        <label for="monlevade">Limites Municipais</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="checkbox" id="ruas">
+                        <label for="ruas">Ruas</label>
+                    </div>
+                    <div class="layer-item">
+                        <input type="checkbox" id="nascentes">
+                        <label for="nascentes">Nascentes</label>
+                    </div>
+                </div>
+
+                <div class="layer-group">
+                    <h4><i class="fas fa-tools"></i> Ferramentas</h4>
+                    <button id="fullscreenBtn" class="tool-btn">
+                        <i class="fas fa-expand"></i> Tela Cheia
+                    </button>
+                    <button id="measureBtn" class="tool-btn">
+                        <i class="fas fa-ruler"></i> Medir Distância
+                    </button>
+                    <button id="infoBtn" class="tool-btn">
+                        <i class="fas fa-info-circle"></i> Informações
+                    </button>
+                </div>
+
+                <div class="layer-group">
+                    <h4><i class="fas fa-search"></i> Análise Espacial</h4>
+                    <div class="analysis-controls">
+                        <label for="bufferRadius">Raio do Buffer:</label>
+                        <select id="bufferRadius" class="analysis-select">
+                            <option value="100">100 metros</option>
+                            <option value="250" selected>250 metros</option>
+                            <option value="500">500 metros</option>
+                            <option value="1000">1 km</option>
+                        </select>
+                        
+                        <button id="startAnalysisBtn" class="analysis-btn">
+                            <i class="fas fa-play"></i> Iniciar Análise
+                        </button>
+                        
+                        <button id="clearAnalysisBtn" class="analysis-btn secondary">
+                            <i class="fas fa-times"></i> Limpar
+                        </button>
+                        
+                        <button id="statsBtn" class="analysis-btn secondary">
+                            <i class="fas fa-chart-bar"></i> Resumo Estatístico
+                        </button>
+                    </div>
+                    
+                    <div class="analysis-status" id="analysisStatus">
+                        <p><i class="fas fa-info-circle"></i> Clique em uma nascente para analisar</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Botão para abrir sidebar no mobile -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Container do mapa -->
+        <main class="map-container">
+            <div id="map"></div>
+            
+            <!-- Popup inicial -->
+            <div id="welcomePopup" class="welcome-popup">
+                <div class="popup-content">
+                    <h3><i class="fas fa-map-marker-alt"></i> Bem-vindo a João Monlevade!</h3>
+                    <p>Explore a cidade através desta aplicação WebGIS interativa.</p>
+                    <div class="city-info">
+                        <p><strong>Estado:</strong> Minas Gerais</p>
+                        <p><strong>Região:</strong> Vale do Aço</p>
+                        <p><strong>População:</strong> ~75.000 habitantes</p>
+                        <p><strong>Área:</strong> ~99 km²</p>
+                    </div>
+                    <button id="closeWelcome" class="close-popup">Entendi!</button>
+                </div>
+            </div>
+
+            <!-- Barra de status -->
+            <div class="status-bar">
+                <span id="coordinates">Lat: 0, Lng: 0</span>
+                <span id="zoom">Zoom: 10</span>
+                <span id="scale">Escala: 1:1000</span>
+            </div>
+
+            <!-- Legenda -->
+            <div class="legend" id="legend">
+                <h4><i class="fas fa-list"></i> Legenda</h4>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #3498db;"></span>
+                    <span>Bairros</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #e74c3c;"></span>
+                    <span>Estruturas Urbanas</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #27ae60;"></span>
+                    <span>Limites Municipais</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #f39c12;"></span>
+                    <span>Ruas</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #9b59b6;"></span>
+                    <span>Nascentes</span>
+                </div>
+                <div class="legend-item" id="bufferLegend" style="display: none;">
+                    <span class="legend-color" style="background: rgba(255, 193, 7, 0.6); border: 2px solid #ffc107;"></span>
+                    <span>Área de Influência</span>
+                </div>
+            </div>
+
+            <!-- Painel de Resultados da Análise -->
+            <div class="analysis-results" id="analysisResults">
+                <div class="results-header">
+                    <h4><i class="fas fa-chart-bar"></i> Resultados da Análise</h4>
+                    <button class="close-results" id="closeResults">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="results-content" id="resultsContent">
+                    <p class="no-results">Nenhuma análise realizada</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
