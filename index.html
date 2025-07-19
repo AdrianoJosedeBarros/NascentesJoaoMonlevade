@@ -138,15 +138,32 @@
             <!-- Popup inicial -->
             <div id="welcomePopup" class="welcome-popup">
                 <div class="popup-content">
-                    <h3><i class="fas fa-map-marker-alt"></i> Bem-vindo a João Monlevade!</h3>
-                    <p>Explore a cidade através desta aplicação WebGIS interativa.</p>
-                    <div class="city-info">
-                        <p><strong>Estado:</strong> Minas Gerais</p>
-                        <p><strong>Região:</strong> Vale do Aço</p>
-                        <p><strong>População:</strong> ~75.000 habitantes</p>
-                        <p><strong>Área:</strong> ~99 km²</p>
+                    <div class="popup-header">
+                        <h3><i class="fas fa-map-marker-alt"></i> João Monlevade - MG</h3>
+                        <button id="closeWelcome" class="close-popup-btn">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <button id="closeWelcome" class="close-popup">Entendi!</button>
+                    <p class="popup-subtitle">WebGIS Interativo - Vale do Aço</p>
+                    <div class="city-info-compact">
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-users"></i> População:</span>
+                            <span class="info-value">~75.000 hab</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-map"></i> Área:</span>
+                            <span class="info-value">~99 km²</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-tint"></i> Nascentes:</span>
+                            <span class="info-value">37 pontos</span>
+                        </div>
+                    </div>
+                    <div class="popup-actions">
+                        <button id="startExploring" class="explore-btn">
+                            <i class="fas fa-play"></i> Explorar
+                        </button>
+                    </div>
                 </div>
             </div>
 

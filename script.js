@@ -93,6 +93,7 @@ function setupEventListeners() {
 
     // Popup de boas-vindas
     document.getElementById('closeWelcome').addEventListener('click', closeWelcomePopup);
+    document.getElementById('startExploring').addEventListener('click', closeWelcomePopup);
 
     // Controles de análise espacial
     document.getElementById('startAnalysisBtn').addEventListener('click', toggleAnalysisMode);
