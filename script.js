@@ -90,6 +90,9 @@ function setupEventListeners() {
     // Sidebar mobile
     document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
     document.getElementById('closeSidebar').addEventListener('click', closeSidebar);
+    
+    // Botão flutuante de camadas
+    document.getElementById('layersToggle').addEventListener('click', toggleSidebar);
 
     // Popup de boas-vindas
     document.getElementById('closeWelcome').addEventListener('click', closeWelcomePopup);
@@ -548,6 +551,17 @@ function updateStatusBar() {
 function showWelcomePopup() {
     const popup = document.getElementById('welcomePopup');
     popup.style.display = 'block';
+    
+    // Adicionar animação de pulso no botão de camadas após 3 segundos
+    setTimeout(() => {
+        const layersBtn = document.getElementById('layersToggle');
+        layersBtn.classList.add('pulse');
+        
+        // Remover a animação após 6 segundos
+        setTimeout(() => {
+            layersBtn.classList.remove('pulse');
+        }, 6000);
+    }, 3000);
 }
 
 // Fechar popup de boas-vindas

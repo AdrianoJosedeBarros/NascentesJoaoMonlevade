@@ -226,6 +226,64 @@ body {
     transform: scale(1.1);
 }
 
+/* Botão flutuante de controle de camadas */
+.layers-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.layers-toggle:hover {
+    background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.layers-toggle:active {
+    transform: translateY(0);
+}
+
+.layers-toggle i {
+    font-size: 1rem;
+}
+
+.layers-text {
+    font-weight: 500;
+}
+
+/* Animação de pulso para chamar atenção */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.6);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+}
+
+.layers-toggle.pulse {
+    animation: pulse 2s infinite;
+}
+
 /* Container do mapa */
 .map-container {
     flex: 1;
@@ -465,6 +523,17 @@ body {
     
     .sidebar-toggle {
         display: block;
+    }
+    
+    .layers-toggle {
+        top: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .layers-text {
+        display: none;
     }
     
     .welcome-popup {
