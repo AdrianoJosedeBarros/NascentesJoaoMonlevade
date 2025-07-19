@@ -132,10 +132,16 @@
         </button>
 
         <!-- Botão flutuante de controle de camadas -->
-        <button class="layers-toggle" id="layersToggle" title="Controle de Camadas">
-            <i class="fas fa-layers"></i>
-            <span class="layers-text">Camadas</span>
-        </button>
+        <div class="layers-toggle-container">
+            <div class="layers-toggle-tooltip">
+                <i class="fas fa-info-circle"></i>
+                <span>Controle de Camadas</span>
+            </div>
+            <button class="layers-toggle" id="layersToggle" title="Abrir Controle de Camadas">
+                <i class="fas fa-layers"></i>
+                <span class="layers-text">Camadas</span>
+            </button>
+        </div>
 
         <!-- Container do mapa -->
         <main class="map-container">

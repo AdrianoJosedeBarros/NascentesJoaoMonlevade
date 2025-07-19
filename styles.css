@@ -226,11 +226,55 @@ body {
     transform: scale(1.1);
 }
 
-/* Botão flutuante de controle de camadas */
-.layers-toggle {
+/* Container do botão flutuante de controle de camadas */
+.layers-toggle-container {
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* Tooltip informativo */
+.layers-toggle-tooltip {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: tooltipFadeIn 0.5s ease-out;
+    max-width: 200px;
+    text-align: center;
+}
+
+.layers-toggle-tooltip i {
+    color: #3498db;
+    font-size: 0.9rem;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Botão flutuante de controle de camadas */
+.layers-toggle {
     background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
     color: white;
     border: none;
@@ -241,12 +285,13 @@ body {
     font-size: 0.9rem;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
     transition: all 0.3s ease;
-    z-index: 1000;
     display: flex;
     align-items: center;
     gap: 8px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 120px;
+    justify-content: center;
 }
 
 .layers-toggle:hover {
@@ -696,11 +741,31 @@ body {
         display: block;
     }
     
-    .layers-toggle {
+    .layers-toggle-container {
         top: 15px;
         right: 15px;
+        gap: 6px;
+    }
+    
+    .layers-toggle-tooltip {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        max-width: 150px;
+    }
+    
+    .layers-toggle-tooltip span {
+        display: none;
+    }
+    
+    .layers-toggle-tooltip i {
+        font-size: 1rem;
+    }
+    
+    .layers-toggle {
         padding: 10px 16px;
         font-size: 0.85rem;
+        min-width: 50px;
+        border-radius: 20px;
     }
     
     .layers-text {
@@ -816,6 +881,25 @@ body {
         width: 45px;
         height: 45px;
         font-size: 1rem;
+    }
+    
+    .layers-toggle-container {
+        top: 10px;
+        right: 10px;
+        gap: 4px;
+    }
+    
+    .layers-toggle-tooltip {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        max-width: 120px;
+    }
+    
+    .layers-toggle {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        min-width: 45px;
+        border-radius: 18px;
     }
     
     .legend {
