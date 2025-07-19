@@ -97,6 +97,10 @@ function setupEventListeners() {
     // Popup de boas-vindas
     document.getElementById('closeWelcome').addEventListener('click', closeWelcomePopup);
     document.getElementById('startExploring').addEventListener('click', closeWelcomePopup);
+    document.getElementById('showHistoryQR').addEventListener('click', showHistoryModal);
+    
+    // Modal da história
+    document.getElementById('closeHistoryModal').addEventListener('click', closeHistoryModal);
 
     // Controles de análise espacial
     document.getElementById('startAnalysisBtn').addEventListener('click', toggleAnalysisMode);
@@ -568,6 +572,47 @@ function showWelcomePopup() {
 function closeWelcomePopup() {
     const popup = document.getElementById('welcomePopup');
     popup.style.display = 'none';
+}
+
+// Mostrar modal da história
+function showHistoryModal() {
+    const modal = document.getElementById('historyModal');
+    modal.style.display = 'flex';
+    generateQRCode();
+}
+
+// Fechar modal da história
+function closeHistoryModal() {
+    const modal = document.getElementById('historyModal');
+    modal.style.display = 'none';
+}
+
+// Gerar QR Code da história
+function generateQRCode() {
+    const qrContainer = document.getElementById('qrContainer');
+    const historyText = `
+História de João Monlevade - MG
+
+🏛️ Fundação: 29 de abril de 1964
+🏭 Desenvolvimento: Companhia Siderúrgica Belgo-Mineira (1937)
+📍 Região: Vale do Aço - Minas Gerais
+🌊 Recursos: 37 nascentes mapeadas
+📊 População: 80.187 habitantes (2022)
+🏙️ Área: ~99 km²
+
+A "Cidade do Aço" é um dos principais centros siderúrgicos do Brasil, conhecida pela produção de aços especiais e qualidade de vida.
+
+WebGIS Nascentes João Monlevade
+https://adrianojosedebarros.github.io/NascentesJoaoMonlevade/
+    `;
+    
+    // Usar API do QR Server para gerar o QR code
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(historyText)}`;
+    
+    qrContainer.innerHTML = `
+        <img src="${qrUrl}" alt="QR Code - História de João Monlevade" 
+             style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+    `;
 }
 
 // Atualizar legenda dinamicamente

@@ -169,6 +169,9 @@
                         <button id="startExploring" class="explore-btn">
                             <i class="fas fa-play"></i> Explorar
                         </button>
+                        <button id="showHistoryQR" class="history-btn">
+                            <i class="fas fa-qrcode"></i> História da Cidade
+                        </button>
                     </div>
                 </div>
             </div>
@@ -206,6 +209,47 @@
                 <div class="legend-item" id="bufferLegend" style="display: none;">
                     <span class="legend-color" style="background: rgba(255, 193, 7, 0.6); border: 2px solid #ffc107;"></span>
                     <span>Área de Influência</span>
+                </div>
+            </div>
+
+            <!-- Modal da História da Cidade -->
+            <div class="history-modal" id="historyModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3><i class="fas fa-landmark"></i> História de João Monlevade</h3>
+                        <button class="close-modal" id="closeHistoryModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="history-content">
+                            <div class="history-text">
+                                <h4>🏛️ Fundação e Desenvolvimento</h4>
+                                <p>João Monlevade foi fundada em 29 de abril de 1964, mas sua história remonta ao século XVIII. A cidade deve seu desenvolvimento à <strong>Companhia Siderúrgica Belgo-Mineira</strong>, instalada em 1937.</p>
+                                
+                                <h4>🏭 A Cidade do Aço</h4>
+                                <p>Conhecida como a "Cidade do Aço", João Monlevade é um dos principais centros siderúrgicos do Brasil, com produção de aços especiais e produtos de alta qualidade.</p>
+                                
+                                <h4>🌊 Recursos Hídricos</h4>
+                                <p>A cidade é privilegiada com abundantes recursos hídricos, incluindo <strong>37 nascentes mapeadas</strong>, Rio Piracicaba e diversos córregos.</p>
+                                
+                                <h4>📊 Dados Atuais</h4>
+                                <p><strong>População:</strong> 80.187 habitantes (2022)<br>
+                                <strong>Área:</strong> ~99 km²<br>
+                                <strong>Região:</strong> Vale do Aço - MG</p>
+                            </div>
+                            <div class="qr-section">
+                                <h4><i class="fas fa-qrcode"></i> QR Code da História</h4>
+                                <div class="qr-container" id="qrContainer">
+                                    <div class="qr-loading">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <p>Gerando QR Code...</p>
+                                    </div>
+                                </div>
+                                <p class="qr-info">Escaneie para acessar a história completa da cidade</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
